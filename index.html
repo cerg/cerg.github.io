@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lumina Hospitality Analytics: El Impacto del Origen</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <script src="script.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#000000",
+                        "on-primary-container": "#7c839b",
+                        "outline-variant": "#c6c6cd",
+                        "tertiary-container": "#00201d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "corporate-blue": "#2563EB",
+                        "on-error": "#ffffff",
+                        "accent-teal": "#0D9488",
+                        "on-tertiary-container": "#0c9488",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface-variant": "#45464d",
+                        "background-subtle": "#F8FAFC",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed": "#89f5e7",
+                        "sky-blue": "#E0F2FE",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary": "#000000",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#316bf3",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#76777d",
+                        "inverse-surface": "#213145",
+                        "secondary": "#0051d5",
+                        "primary-container": "#131b2e",
+                        "deep-navy": "#0F172A",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#dbe1ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "surface": "#f8f9ff",
+                        "surface-tint": "#565e74",
+                        "on-surface": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#fefcff",
+                        "on-tertiary-fixed": "#00201d",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "container-max": "1280px",
+                        "section-gap": "80px",
+                        "component-gap": "16px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": [
+                            "Playfair Display"
+                        ],
+                        "label-sm": [
+                            "Source Sans 3"
+                        ],
+                        "body-lg": [
+                            "Source Sans 3"
+                        ],
+                        "label-md": [
+                            "Source Sans 3"
+                        ],
+                        "body-md": [
+                            "Source Sans 3"
+                        ],
+                        "headline-md": [
+                            "Playfair Display"
+                        ],
+                        "headline-lg": [
+                            "Playfair Display"
+                        ],
+                        "headline-lg-mobile": [
+                            "Playfair Display"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-lg": [
+                            "48px",
+                            {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-lg": [
+                            "18px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "label-md": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-md": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "28px",
+                            {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .tab-btn.active {
+            background-color: #2563EB !important;
+            color: #ffffff !important;
+        }
+        .chart-bar {
+            fill: #316bf3;
+            transition: fill 0.3s;
+        }
+        .chart-bar:hover {
+            fill: #0051d5;
+        }
+        .chart-axis-label {
+            font-size: 14px;
+            font-weight: 600;
+            fill: #45464d;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-surface-variant selection:text-corporate-blue">
+    <!-- TopNavBar -->
+    <header
+        class="w-full top-0 sticky bg-surface dark:bg-deep-navy border-b border-outline-variant dark:border-outline z-50 transition-all duration-300 ease-in-out">
+        <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+            <div class="text-headline-md font-headline-md font-bold text-deep-navy dark:text-white">
+                Visual Analytics of Hotel Bookings in R
+            </div>
+            <button
+                class="hidden md:inline-flex items-center justify-center bg-deep-navy text-white px-6 py-3 rounded text-label-md font-label-md hover:bg-opacity-90 transition-opacity">
+                Executive Dashboard
+            </button>
+            <button class="md:hidden text-on-surface p-2">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+    <main>
+        <!-- Section 1: Hero -->
+        <section
+            class="relative w-full h-[819px] min-h-[600px] flex items-center justify-center overflow-hidden bg-deep-navy">
+            <div class="absolute inset-0 z-0">
+                <img alt="Hero Background" class="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                    data-alt="A highly detailed, professional architectural photograph of a luxurious, modern hotel lobby. The space is vast and immaculate, featuring polished marble floors, sleek contemporary furniture, and subtle ambient lighting. The overall image has a sophisticated deep blue corporate overlay applied, giving it an authoritative, analytical, and high-end aesthetic typical of premium hospitality data reports. The lighting is dramatic yet clean, emphasizing the structured geometry of the interior design."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5u7W4f3o6MSXnMh52Fq_G_9cRLXssk1b7nr2hFIpSBF_1vTlZsaQBZgeD-2r8Y8oQJohybRaFqI49qmpnzOcA0YveGuKAX1_LRpYcZE4oHWPRqOv1WLIeaQB_4zOgR5rKh00f1RBRTANsLwU6dgpqscVKAipXaioGfAnSJAKDl0UDwOQ-bsFtqLKzJmLrdSW2CUoXtpVK6yFx1SHtqrOzoYP-RI6jk6m6i5bMaK-vw69zoQgO4daA6RP39NpSpy9o9zlaSqJv_Wo" />
+                <div class="absolute inset-0 bg-gradient-to-t from-deep-navy via-deep-navy/80 to-transparent"></div>
+            </div>
+            <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+                <span
+                    class="inline-block px-4 py-1.5 mb-6 bg-sky-blue/10 text-sky-blue rounded-full text-label-sm font-label-sm tracking-wider uppercase border border-sky-blue/20">
+                    Hospitality Data Insights
+                </span>
+                <h1 class="text-display-lg font-display-lg text-white mb-6 max-w-4xl mx-auto">
+                    El Arte de la Segmentación: ¿Quién cancela realmente?
+                </h1>
+                <p class="text-body-lg font-body-lg text-surface-dim max-w-2xl mx-auto leading-relaxed">
+                    Un análisis profundo sobre cómo el origen geográfico y el tipo de reserva moldean el comportamiento
+                    de cancelación en la industria hotelera europea.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-4">
+                    <span class="material-symbols-outlined text-sky-blue animate-bounce">arrow_downward</span>
+                </div>
+            </div>
+        </section>
+        <!-- Section 2: Context (Scrollytelling Layout) -->
+        <section id="scrolly-map"
+            class="relative py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+                <article class="md:col-span-5 relative z-10 space-y-[60vh] pb-[20vh]">
+                    <div class="step bg-white p-6 rounded-xl border border-surface-dim shadow-sm" data-step="1">
+                        <div class="flex items-center gap-2 text-corporate-blue mb-4">
+                            <span class="material-symbols-outlined fill">public</span>
+                            <h3 class="text-label-md font-label-md uppercase tracking-wider">El Escenario Global</h3>
+                        </div>
+                        <h2 class="text-headline-lg font-headline-lg text-deep-navy mb-4">
+                            Distribución Geográfica de la Demanda
+                        </h2>
+                        <p class="text-body-lg font-body-lg text-on-surface-variant">
+                            El análisis de 119,000 reservas revela una clara concentración del mercado en Europa
+                            Occidental. Portugal domina como el principal mercado emisor, seguido de cerca por el Reino
+                            Unido, Francia y España.
+                        </p>
+                    </div>
+
+                    <div class="step bg-white p-6 rounded-xl border border-surface-dim shadow-sm" data-step="2">
+                        <p class="text-body-md font-body-md text-on-surface-variant mb-6">
+                            Sin embargo, la procedencia dicta fuertemente las preferencias de alojamiento: mientras que
+                            el turismo urbano (Lisboa/Porto) atrae a un perfil demográfico, el turismo de resort
+                            (Algarve) muestra patrones geográficos marcadamente distintos.
+                        </p>
+                        <div class="pt-6 border-t border-outline-variant">
+                            <div class="flex gap-4">
+                                <div class="flex-1">
+                                    <div class="text-headline-md font-headline-md text-deep-navy"><span
+                                            class="counter-animate" data-target="119" data-suffix="k">119k</span></div>
+                                    <div class="text-label-sm font-label-sm text-on-surface-variant">Reservas Analizadas
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-headline-md font-headline-md text-corporate-blue">4</div>
+                                    <div class="text-label-sm font-label-sm text-on-surface-variant">Mercados Clave
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <figure class="md:col-span-7 sticky top-32 h-[500px] z-0">
+                    <div
+                        class="w-full h-full bg-white rounded-xl border border-surface-dim p-2 shadow-sm overflow-hidden">
+                        <div
+                            class="w-full h-full bg-background-subtle rounded-lg flex items-center justify-center relative p-4">
+                            <!-- Interactive D3 Map Container -->
+                            <div id="d3-map-container"
+                                class="relative w-full h-full flex flex-col items-center justify-center">
+                                <div
+                                    class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2Y4ZmFmYyI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSIjZWFmMWZmIj48L2NpcmNsZT4KPC9zdmc+')] opacity-20">
+                                </div>
+                                <div id="d3-map-graphic" class="relative z-10 w-full h-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </section>
+        <!-- Section 3: Tension -->
+        <section class="reveal-on-scroll py-section-gap bg-background-subtle border-y border-surface-dim">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-corporate-blue font-label-md text-label-md uppercase tracking-wider mb-2 block">El
+                        Problema de las Cancelaciones</span>
+                    <h2 class="text-headline-lg font-headline-lg text-deep-navy mb-4">
+                        La Fuga de Ingresos: Un 37% de Abandono
+                    </h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant">
+                        Más de un tercio de las reservas confirmadas nunca llegan a materializarse. Este índice de
+                        cancelación no se distribuye uniformemente a través del portfolio hotelero.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-component-gap">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-white p-8 rounded-xl border border-surface-dim shadow-[0_4px_24px_rgba(15,23,42,0.04)]">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h4 class="text-headline-md font-headline-md text-deep-navy">City Hotels</h4>
+                                <span class="text-label-md font-label-md text-on-surface-variant">Alta
+                                    Volatilidad</span>
+                            </div>
+                            <span class="material-symbols-outlined text-error text-3xl">trending_up</span>
+                        </div>
+                        <div class="text-[56px] leading-none font-display-lg text-error mb-2"><span
+                                class="counter-animate" data-target="42" data-suffix="%">42%</span></div>
+                        <p class="text-body-md font-body-md text-on-surface-variant">
+                            Tasa de cancelación significativamente superior, impulsada por viajes de negocios de última
+                            hora y menor compromiso financiero inicial.
+                        </p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-white p-8 rounded-xl border border-surface-dim shadow-[0_4px_24px_rgba(15,23,42,0.04)]">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h4 class="text-headline-md font-headline-md text-deep-navy">Resorts</h4>
+                                <span class="text-label-md font-label-md text-on-surface-variant">Estabilidad
+                                    Relativa</span>
+                            </div>
+                            <span class="material-symbols-outlined text-accent-teal text-3xl">trending_down</span>
+                        </div>
+                        <div class="text-[56px] leading-none font-display-lg text-accent-teal mb-2"><span
+                                class="counter-animate" data-target="28" data-suffix="%">28%</span></div>
+                        <p class="text-body-md font-body-md text-on-surface-variant">
+                            Mayor retención gracias a la naturaleza planificada de las vacaciones y políticas de
+                            depósito más estrictas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 4: Climax -->
+        <section
+            class="reveal-on-scroll py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-6 md:order-2 space-y-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded text-deep-navy font-label-sm text-label-sm uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[16px]">insights</span>
+                        Hallazgo Principal
+                    </div>
+                    <h2 class="text-headline-lg font-headline-lg text-deep-navy">
+                        La Paradoja Local
+                    </h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant">
+                        Contrario a la intuición de la industria, el análisis de datos revela una tensión fundamental:
+                        <strong>el mercado doméstico es el menos fiable.</strong>
+                    </p>
+                    <div class="bg-sky-blue/20 border-l-4 border-corporate-blue p-6 rounded-r-lg mt-6">
+                        <p class="text-body-md font-body-md text-deep-navy italic">
+                            "Los residentes locales (Portugal) presentan una tasa de cancelación marcadamente superior a
+                            la de los turistas internacionales, sugiriendo un uso especulativo de las políticas de
+                            cancelación gratuita."
+                        </p>
+                    </div>
+                </div>
+                <div class="md:col-span-6 md:order-1 relative">
+                    <!-- Glassmorphism Callout Card -->
+                    <div
+                        class="relative w-full aspect-square md:aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-corporate-blue to-deep-navy p-1">
+                        <div
+                            class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent">
+                        </div>
+                        <div
+                            class="relative h-full w-full bg-deep-navy/90 backdrop-blur-md rounded-lg p-8 flex flex-col justify-center items-center text-center border border-white/10">
+                            <span class="material-symbols-outlined text-white/50 text-[48px] mb-4">analytics</span>
+                            <div class="text-headline-lg font-headline-lg text-white mb-2">Riesgo Doméstico</div>
+                            <div class="text-[72px] font-display-lg text-sky-blue font-bold leading-none mb-4">+<span
+                                    class="counter-animate" data-target="45" data-suffix="%">45%</span></div>
+                            <p class="text-body-md font-body-md text-surface-dim max-w-xs">
+                                Mayor probabilidad de cancelación vs. mercado internacional promedio.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4.5: El mapa de las cancelaciones -->
+        <section class="reveal-on-scroll py-section-gap bg-surface border-t border-surface-dim relative">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-headline-lg font-headline-lg text-deep-navy mb-4">
+                        El Mapa de las Cancelaciones
+                    </h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant">
+                        Explora de forma interactiva las principales métricas y factores que influyen en las tasas de cancelación.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-xl border border-surface-dim p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] flex flex-col items-center">
+                    <div class="controls flex flex-wrap justify-center gap-2 mb-8">
+                        <button class="tab-btn active px-5 py-2.5 bg-surface-container rounded-lg text-label-md font-label-md text-deep-navy hover:bg-surface-container-high transition-colors border border-outline-variant/30" data-target="hotel">Tipo de Hotel</button>
+                        <button class="tab-btn px-5 py-2.5 bg-surface-container rounded-lg text-label-md font-label-md text-deep-navy hover:bg-surface-container-high transition-colors border border-outline-variant/30" data-target="leadTime">Antelación</button>
+                        <button class="tab-btn px-5 py-2.5 bg-surface-container rounded-lg text-label-md font-label-md text-deep-navy hover:bg-surface-container-high transition-colors border border-outline-variant/30" data-target="deposit">Depósitos</button>
+                        <button class="tab-btn px-5 py-2.5 bg-surface-container rounded-lg text-label-md font-label-md text-deep-navy hover:bg-surface-container-high transition-colors border border-outline-variant/30" data-target="months">Meses Críticos</button>
+                    </div>
+
+                    <h3 id="chart-title" class="text-headline-md font-headline-md text-deep-navy mb-6 text-center">Tasa de Cancelación por Tipo de Hotel (%)</h3>
+                    
+                    <div id="dashboard-chart-container" class="relative flex justify-center w-full overflow-visible min-h-[400px]">
+                        <div id="chart-tooltip" class="absolute text-center p-3 text-label-sm font-label-sm bg-deep-navy text-white rounded-lg pointer-events-none opacity-0 transition-opacity z-10 shadow-lg border border-white/10" style="background: rgba(15, 23, 42, 0.95);"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Script de D3 para "El mapa de las cancelaciones"
+            const cancelDatasets = {
+                hotel: { 
+                    title: 'Tasa de Cancelación por Tipo de Hotel (%)', 
+                    yLabel: 'Tasa (%)', 
+                    suffix: '%',
+                    data: [{category: 'City Hotel', value: 43.12}, {category: 'Resort Hotel', value: 28.85}] 
+                },
+                leadTime: { 
+                    title: 'Antelación Promedio de la Reserva (Días)', 
+                    yLabel: 'Días de antelación', 
+                    suffix: ' días',
+                    data: [{category: 'Cancelada', value: 149}, {category: 'No Cancelada', value: 82}] 
+                },
+                deposit: { 
+                    title: 'Tasa de Cancelación por Tipo de Depósito (%)', 
+                    yLabel: 'Tasa (%)', 
+                    suffix: '%',
+                    data: [{category: 'Sin Depósito', value: 28.5}, {category: 'No Reembolsable', value: 99.4}] 
+                },
+                months: { 
+                    title: 'Top 5 Meses con Más Cancelaciones', 
+                    yLabel: 'Volumen Total de Cancelaciones', 
+                    suffix: ' res.',
+                    data: [
+                        {category: 'Agosto', value: 4835}, 
+                        {category: 'Mayo', value: 4308}, 
+                        {category: 'Julio', value: 4304}, 
+                        {category: 'Junio', value: 4171}, 
+                        {category: 'Abril', value: 4082}
+                    ] 
+                }
+            };
+
+            const dbMargin = {top: 40, right: 30, bottom: 60, left: 80},
+                  dbWidth = 700 - dbMargin.left - dbMargin.right,
+                  dbHeight = 400 - dbMargin.top - dbMargin.bottom;
+
+            const dbSvg = d3.select("#dashboard-chart-container")
+                .append("svg")
+                .attr("width", dbWidth + dbMargin.left + dbMargin.right)
+                .attr("height", dbHeight + dbMargin.top + dbMargin.bottom)
+                .append("g")
+                .attr("transform", `translate(${dbMargin.left},${dbMargin.top})`);
+
+            const dbXAxisGroup = dbSvg.append("g").attr("transform", `translate(0,${dbHeight})`);
+            const dbYAxisGroup = dbSvg.append("g");
+            const dbYLabelText = dbSvg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - dbMargin.left + 20)
+                .attr("x", 0 - (dbHeight / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .attr("class", "chart-axis-label");
+
+            const dbTooltip = d3.select("#chart-tooltip");
+
+            const dbX = d3.scaleBand().range([0, dbWidth]).padding(0.3);
+            const dbY = d3.scaleLinear().range([dbHeight, 0]);
+
+            function updateDashboardChart(datasetKey) {
+                const currentData = cancelDatasets[datasetKey];
+                const data = currentData.data;
+
+                d3.select("#chart-title").text(currentData.title);
+                dbYLabelText.text(currentData.yLabel);
+
+                dbX.domain(data.map(d => d.category));
+                const maxValue = d3.max(data, d => d.value);
+                const yMax = (currentData.suffix === '%' && maxValue <= 100) ? 100 : maxValue * 1.1; 
+                dbY.domain([0, yMax]);
+
+                dbXAxisGroup.transition().duration(750)
+                    .call(d3.axisBottom(dbX))
+                    .selectAll("text")
+                    .attr("font-size", "14px")
+                    .attr("font-family", "Source Sans 3");
+                
+                dbYAxisGroup.transition().duration(750)
+                    .call(d3.axisLeft(dbY).ticks(6))
+                    .selectAll("text")
+                    .attr("font-size", "12px")
+                    .attr("font-family", "Source Sans 3");
+
+                const bars = dbSvg.selectAll(".chart-bar").data(data, d => d.category);
+
+                bars.exit()
+                    .transition().duration(500)
+                    .attr("y", dbHeight)
+                    .attr("height", 0)
+                    .remove();
+
+                bars.enter()
+                    .append("rect")
+                    .attr("class", "chart-bar")
+                    .attr("x", d => dbX(d.category))
+                    .attr("y", dbHeight) 
+                    .attr("width", dbX.bandwidth())
+                    .attr("height", 0)
+                    .on("mouseover", function(event, d) {
+                        const [x, y] = d3.pointer(event, document.getElementById('dashboard-chart-container'));
+                        dbTooltip.transition().duration(200).style("opacity", 1);
+                        dbTooltip.html(`<strong>${d.category}</strong><br/>${d.value}${currentData.suffix}`)
+                            .style("left", (x + 10) + "px")
+                            .style("top", (y - 28) + "px");
+                        d3.select(this).style("opacity", 0.8);
+                    })
+                    .on("mousemove", function(event) {
+                        const [x, y] = d3.pointer(event, document.getElementById('dashboard-chart-container'));
+                        dbTooltip.style("left", (x + 10) + "px")
+                               .style("top", (y - 28) + "px");
+                    })
+                    .on("mouseleave", function(event, d) {
+                        dbTooltip.transition().duration(500).style("opacity", 0);
+                        d3.select(this).style("opacity", 1);
+                    })
+                    .merge(bars) 
+                    .transition().duration(750) 
+                    .attr("x", d => dbX(d.category))
+                    .attr("width", dbX.bandwidth())
+                    .attr("y", d => dbY(d.value))
+                    .attr("height", d => dbHeight - dbY(d.value));
+            }
+
+            d3.selectAll(".tab-btn").on("click", function() {
+                d3.selectAll(".tab-btn").classed("active", false);
+                d3.select(this).classed("active", true);
+                const target = d3.select(this).attr("data-target");
+                updateDashboardChart(target);
+            });
+
+            // Usamos setTimeout para asegurar que el DOM esté listo antes de renderizar
+            setTimeout(() => {
+                updateDashboardChart('hotel');
+            }, 100);
+        </script>
+        <!-- Section 4.6: Cancelaciones por Tamaño de Reserva -->
+        <section class="reveal-on-scroll py-section-gap bg-background-subtle border-t border-surface-dim relative">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-headline-lg font-headline-lg text-deep-navy mb-4">
+                        Cancelaciones por Tamaño de Reserva
+                    </h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant">
+                        Distribución de cancelaciones según la cantidad de personas en la reserva.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-xl border border-surface-dim p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] flex flex-col items-center">
+                    <div id="donut-chart-container" class="relative flex justify-center w-full overflow-visible min-h-[400px]">
+                        <div id="donut-tooltip" class="absolute text-center p-3 text-label-sm font-label-sm bg-deep-navy text-white rounded-lg pointer-events-none opacity-0 transition-opacity z-10 shadow-lg border border-white/10" style="background: rgba(15, 23, 42, 0.95);"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Script de D3 para "Cancelaciones por Tamaño de Reserva"
+            const donutData = [
+                { categoria: "Doble / Pareja (2 personas)", valor: 30371, porcentaje: 74.8 },
+                { categoria: "Individual (1 persona)", valor: 5966, porcentaje: 14.7 },
+                { categoria: "Grupal / Familiar (3+ personas)", valor: 4261, porcentaje: 10.5 }
+            ];
+
+            const dnWidth = 600,
+                  dnHeight = 400,
+                  dnMargin = 40;
+            
+            const dnRadius = Math.min(dnWidth, dnHeight) / 2 - dnMargin;
+
+            const dnSvg = d3.select("#donut-chart-container")
+                .append("svg")
+                .attr("width", dnWidth)
+                .attr("height", dnHeight)
+                .append("g")
+                .attr("transform", `translate(${dnWidth / 2},${dnHeight / 2})`);
+
+            const dnColor = d3.scaleOrdinal()
+                .domain(donutData.map(d => d.categoria))
+                .range(["#2563EB", "#0D9488", "#b4c5ff"]); // corporate-blue, accent-teal, secondary-fixed-dim
+
+            const dnPie = d3.pie()
+                .value(d => d.valor)
+                .sort(null); 
+
+            const dnData_ready = dnPie(donutData);
+
+            const arcGenerator = d3.arc()
+                .innerRadius(dnRadius * 0.5) 
+                .outerRadius(dnRadius);
+
+            const arcHover = d3.arc()
+                .innerRadius(dnRadius * 0.5)
+                .outerRadius(dnRadius * 1.05);
+
+            const dnTooltip = d3.select("#donut-tooltip");
+
+            dnSvg.selectAll("path")
+                .data(dnData_ready)
+                .enter()
+                .append("path")
+                .attr("d", arcGenerator)
+                .attr("fill", d => dnColor(d.data.categoria))
+                .attr("stroke", "white")
+                .style("stroke-width", "2px")
+                .style("opacity", 0.9)
+                .style("transition", "opacity 0.2s")
+                .on("mouseover", function(event, d) {
+                    d3.select(this)
+                      .transition().duration(200)
+                      .attr("d", arcHover)
+                      .style("opacity", 1);
+                    
+                    const [x, y] = d3.pointer(event, document.getElementById('donut-chart-container'));
+                    dnTooltip.transition().duration(200).style("opacity", 1);
+                    dnTooltip.html(`<strong>${d.data.categoria}</strong><br/>
+                                  Cancelaciones: ${d.data.valor.toLocaleString()}<br/>
+                                  Representa: ${d.data.porcentaje}%`)
+                           .style("left", (x + 15) + "px")
+                           .style("top", (y - 28) + "px");
+                })
+                .on("mousemove", function(event) {
+                    const [x, y] = d3.pointer(event, document.getElementById('donut-chart-container'));
+                    dnTooltip.style("left", (x + 15) + "px")
+                           .style("top", (y - 28) + "px");
+                })
+                .on("mouseleave", function(event, d) {
+                    d3.select(this)
+                      .transition().duration(200)
+                      .attr("d", arcGenerator)
+                      .style("opacity", 0.9);
+                      
+                    dnTooltip.transition().duration(500).style("opacity", 0);
+                });
+
+            const legend = dnSvg.selectAll(".legend")
+                .data(donutData)
+                .enter()
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", (d, i) => `translate(-${dnWidth/2 - 20}, ${-dnHeight/2 + 20 + i * 25})`); 
+
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("width", 15)
+                .attr("height", 15)
+                .attr("rx", 3) 
+                .style("fill", d => dnColor(d.categoria));
+
+            legend.append("text")
+                .attr("x", 25)
+                .attr("y", 12)
+                .text(d => `${d.categoria} (${d.porcentaje}%)`)
+                .style("font-size", "14px")
+                .attr("font-family", "Source Sans 3")
+                .attr("fill", "#45464d")
+                .attr("alignment-baseline", "middle");
+
+        </script>
+
+        <!-- Section 5: Action -->
+        <section id="scrolly-chart" class="py-section-gap bg-white border-t border-surface-dim relative">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-headline-lg font-headline-lg text-deep-navy mb-4">
+                        Estrategia para el Éxito
+                    </h2>
+                    <p class="text-body-lg font-body-lg text-on-surface-variant">
+                        Basado en estos insights, recomendamos un pivote estratégico hacia mercados de mayor retención y
+                        políticas dinámicas.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+                    <!-- Chart Sticky Column -->
+                    <figure class="lg:col-span-8 sticky top-32 h-[450px] z-0">
+                        <div
+                            class="bg-background-subtle rounded-xl border border-surface-dim p-6 h-full flex flex-col shadow-sm">
+                            <h4 class="text-headline-md font-headline-md text-deep-navy mb-6">Segmentación Internacional
+                                Optimizada</h4>
+                            <div class="flex-1 w-full relative" id="d3-chart-container">
+                                <!-- D3 Chart will be injected here -->
+                            </div>
+                        </div>
+                    </figure>
+                    <!-- Action Items Steps -->
+                    <article class="lg:col-span-4 relative z-10 space-y-[50vh] pb-[20vh] pt-[10vh]">
+                        <div class="step bg-surface-container-low p-6 rounded-xl border border-surface-dim shadow-md"
+                            data-step="1">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-corporate-blue/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-corporate-blue">gavel</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-label-md font-label-md text-deep-navy mb-1">Políticas de Depósito
+                                        Dinámicas</h4>
+                                    <p class="text-body-sm font-body-sm text-on-surface-variant">
+                                        Endurecer las condiciones de depósito para reservas locales a corto plazo.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step bg-surface-container-low p-6 rounded-xl border border-surface-dim shadow-md"
+                            data-step="2">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-corporate-blue/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-corporate-blue">campaign</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-label-md font-label-md text-deep-navy mb-1">Foco en Marketing
+                                        Internacional</h4>
+                                    <p class="text-body-sm font-body-sm text-on-surface-variant">
+                                        Redirigir inversión publicitaria hacia UK y Francia, mercados con menor índice
+                                        de cancelación.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step bg-surface-container-low p-6 rounded-xl border border-surface-dim shadow-md"
+                            data-step="3">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-corporate-blue/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-corporate-blue">hotel_class</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-label-md font-label-md text-deep-navy mb-1">Optimización City Hotels
+                                    </h4>
+                                    <p class="text-body-sm font-body-sm text-on-surface-variant">
+                                        Implementar estrategias de overbooking controlado basadas en el origen del
+                                        huésped.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full py-section-gap bg-deep-navy dark:bg-tertiary-container border-t-0">
+        <div
+            class="flex flex-col md:flex-row justify-between items-start px-margin-desktop max-w-container-max mx-auto gap-gutter">
+            <div class="max-w-sm">
+                <div class="text-headline-md font-headline-md text-white mb-4">
+                    Lumina Analytics
+                </div>
+                <p class="text-body-md font-body-md text-outline-variant mb-6">
+                    © 2024 Lumina Hospitality Analytics. All rights reserved. Professional insights for executive
+                    leadership.
+                </p>
+                <div
+                    class="text-label-sm font-label-sm text-outline-variant/70 italic border-l-2 border-outline-variant/30 pl-4 mt-6">
+                    Proyecto Académico: Gabriela Alejandra Perez, UOC 2025
+                </div>
+            </div>
+            <div class="flex flex-col gap-4">
+                <a class="text-outline-variant hover:text-white transition-colors hover:opacity-80 transition-opacity duration-200 text-label-sm font-label-sm"
+                    href="#">Privacy Policy</a>
+                <a class="text-outline-variant hover:text-white transition-colors hover:opacity-80 transition-opacity duration-200 text-label-sm font-label-sm"
+                    href="#">Terms of Service</a>
+                <a class="text-outline-variant hover:text-white transition-colors hover:opacity-80 transition-opacity duration-200 text-label-sm font-label-sm"
+                    href="#">Data Methodology</a>
+                <a class="text-outline-variant hover:text-white transition-colors hover:opacity-80 transition-opacity duration-200 text-label-sm font-label-sm"
+                    href="#">Contact Analyst</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

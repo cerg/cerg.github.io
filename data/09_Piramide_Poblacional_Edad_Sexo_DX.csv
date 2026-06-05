@@ -1,0 +1,21 @@
+dx_label,sex_label,age_bin,Conteo,Conteo_Piramide
+Autismo (TEA),Femenino,6-12,46,46
+Autismo (TEA),Femenino,13-18,17,17
+Autismo (TEA),Femenino,19-25,9,9
+Autismo (TEA),Femenino,26-40,3,3
+Autismo (TEA),Femenino,>40,2,2
+Autismo (TEA),Masculino,6-12,213,-213
+Autismo (TEA),Masculino,13-18,126,-126
+Autismo (TEA),Masculino,19-25,73,-73
+Autismo (TEA),Masculino,26-40,17,-17
+Autismo (TEA),Masculino,>40,15,-15
+Control Típico,Femenino,6-12,123,123
+Control Típico,Femenino,13-18,21,21
+Control Típico,Femenino,19-25,22,22
+Control Típico,Femenino,26-40,11,11
+Control Típico,Femenino,>40,4,4
+Control Típico,Masculino,6-12,229,-229
+Control Típico,Masculino,13-18,74,-74
+Control Típico,Masculino,19-25,55,-55
+Control Típico,Masculino,26-40,35,-35
+Control Típico,Masculino,>40,19,-19
